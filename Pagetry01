@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Contacto</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Formulario de Contacto</h2>
+        <form id="contactoForm">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre">
+            <p id="errorNombre" class="error"></p>
+
+            <label for="email">Correo:</label>
+            <input type="email" id="email" name="email" placeholder="Tu correo">
+            <p id="errorEmail" class="error"></p>
+
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Escribe tu mensaje" rows="4"></textarea>
+            <p id="errorMensaje" class="error"></p>
+
+            <button type="submit">Enviar</button>
+        </form>
+        <p id="resultado"></p>
+    </div>
+
+    <script>
+        document.getElementById("contactoForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita el envío del formulario
+            let nombre = document.getElementById("nombre").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let mensaje = document.getElementById("mensaje").value.trim();
+            let error = false;
+
+            // Reinicia los mensajes de error
+            document.getElementById("errorNombre").innerText = "";
+            document.getElementById("errorEmail").innerText = "";
+            document.getElementById("errorMensaje").innerText = "";
+
+            // Validaciones
+            if (nombre === "") {
+                document.getElementById("errorNombre").innerText = "⚠️ El nombre es obligatorio.";
+                error = true;
+            }
+
+            if (email === "" || !email.includes("@") || !email.includes(".")) {
+                document.getElementById("errorEmail").innerText = "⚠️ Ingresa un correo válido.";
+                error = true;
+            }
+
+            if (mensaje === "") {
+                document.getElementById("errorMensaje").innerText = "⚠️ El mensaje no puede estar vacío.";
+                error = true;
+            }
+
+            if (!error) {
+                document.getElementById("resultado").innerText = "✅ Mensaje enviado con éxito.";
+                document.getElementById("contactoForm").reset(); // Limpia el formulario
+            }
+        });
+    </script>
+
+</body>
+</html>
